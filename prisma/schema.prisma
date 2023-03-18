@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  ID_role   String  @id @default(cuid())
+  Role_name String
+  Acces     String
+  Owner     Owner[]
+}
+
+model Questionnaire {
+  ID_questionnaire Int     @id @default(autoincrement())
+  Reply            Reply[]
+}
+
+model Theme {
+  ID_theme   Int        @id @default(autoincrement())
+  Theme_name String
+  Question   Question[]
+}
+
+model Sector {
+  ID_sector   Int        @id @default(autoincrement())
+  Sector_name String
+  Compagny    Compagny[]
+}
+
+model Compagny {
+  ID_compagny     Int      @id @default(autoincrement())
+  Compagny_name   String
+  Postal_adress   String
+  Mail_adress     String
+  Activity_sector String
+  Sector          Sector   @relation(fields: [ID_sector], references: [ID_sector])
+  ID_sector       Int
+  Person          Person[]
+}
+
+model Question {
+  ID_question    Int     @id @default(autoincrement())
+  Title_question String
+  ID_theme       Int
+  Theme          Theme   @relation(fields: [ID_theme], references: [ID_theme])
+  Reply          Reply[]
+}
+
+model Person {
+  ID_person   Int      @id @default(autoincrement())
+  First_name  String
+  Last_name   String
+  Mail_adress String
+  Password    String
+  ID_compagny Int
+  Compagny    Compagny @relation(fields: [ID_compagny], references: [ID_compagny])
+  Owner       Owner[]
+  Reply       Reply[]
+}
+
+model Owner {
+  ID_person Int
+  ID_role   String
+  Person    Person @relation(fields: [ID_person], references: [ID_person])
+  Role      Role   @relation(fields: [ID_role], references: [ID_role])
+
+  @@id([ID_person, ID_role])
+}
+
+model Reply {
+  ID_person        Int
+  ID_questionnaire Int
+  ID_question      Int
+  Note             Int
+  Person           Person        @relation(fields: [ID_person], references: [ID_person])
+  Questionnaire    Questionnaire @relation(fields: [ID_questionnaire], references: [ID_questionnaire])
+  Question         Question      @relation(fields: [ID_question], references: [ID_question])
+
+  @@id([ID_person, ID_questionnaire, ID_question])
+}
