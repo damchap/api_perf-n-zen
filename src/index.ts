@@ -31,7 +31,7 @@ const user = {
 };
 
 function generateAccessToken(user: any) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET || "3000", { expiresIn: '1800s' });
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET || "1234", { expiresIn: '1800s' });
 }
 function generateRefreshToken(user: any) {
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET || "4000", { expiresIn: '1y' });
