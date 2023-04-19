@@ -5,9 +5,10 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import Auth from './middlewares/auth';
 dotenv.config();
-
-
 import personRoutes from './routes/person';
+import roleRoutes from './routes/role';
+
+
 // Initializations
 const app = express();
 
@@ -55,7 +56,8 @@ app.get('/api/me', Auth, (req, res) => {
     res.send(user);
 });
 
-app.get('/api/V1/person', Auth, personRoutes);
+app.use('/api/V1/person', Auth, personRoutes);
+app.use('/api/V1/role', Auth, roleRoutes);
 
 
   

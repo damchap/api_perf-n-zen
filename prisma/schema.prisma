@@ -12,7 +12,7 @@ datasource db {
 
 model Role {
   ID_role   String  @id @default(cuid())
-  Role_name String
+  Role_name String  @unique
   Acces     String
   Owner     Owner[]
 }
