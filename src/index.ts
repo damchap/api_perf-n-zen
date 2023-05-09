@@ -3,10 +3,11 @@ import morgan from 'morgan';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import Auth from './middlewares/auth';
+
 dotenv.config();
 import personRoutes from './routes/person';
 import roleRoutes from './routes/role';
+import Auth from './Middlewares/Auth';
 
 
 // Initializations
