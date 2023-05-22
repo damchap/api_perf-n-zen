@@ -13,9 +13,8 @@ export const getRole= async (req: Request, res: Response) => {
 }
 /**
  * function get role by id
- * @param req Request
- * @param res Response
- * @returns role
+ * @route  POST /api/role/:id
+ * @returns role by id
  */
 export const getRoleById = async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -28,11 +27,10 @@ export const getRoleById = async (req: Request, res: Response) => {
 }
 
 /**
- * @desc   Create a role
- * @route  POST /api/role
- * @access Private
+ * function create role
+ * @route  POST /api/role/
+ * @returns role created
  */
-
 export const createRole = async (req: Request, res: Response) => {
     const { roleCreated } = req.body;
     const roleCreatedName = roleCreated.Role_name;
