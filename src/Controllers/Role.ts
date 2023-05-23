@@ -2,11 +2,20 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-
+/**
+ * function get all role
+ * @param req Request
+ * @param res Response
+ */
 export const getRole= async (req: Request, res: Response) => {
     const role = await prisma.role.findMany();
     res.json(role);
 }
+/**
+ * function get role by id
+ * @route  POST /api/role/:id
+ * @returns role by id
+ */
 export const getRoleById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const role = await prisma.role.findUnique({
@@ -17,6 +26,11 @@ export const getRoleById = async (req: Request, res: Response) => {
     res.json(role);
 }
 
+/**
+ * function create role
+ * @route  POST /api/role/
+ * @returns role created
+ */
 export const createRole = async (req: Request, res: Response) => {
     const { roleCreated } = req.body;
     const roleCreatedName = roleCreated.Role_name;
