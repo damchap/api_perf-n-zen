@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
-    "build": "tsup src/index.ts --format cjs --clean",
-    "start": "node dist/index.js"
-  },
+    "seed": "ts-node prisma/seed.ts",
+    "build": "tsc ",
+    "start": "node dist/src/index.js"
+    },
   "keywords": [],
   "author": "Damien Chapart, Ludovic Guillerm, Adeline Huvet, Orane Lebesnerais, Jeanne Pellé, Benjamin Rocher",
   "license": "ISC",
