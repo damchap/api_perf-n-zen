@@ -15,7 +15,7 @@ import Auth from './Middlewares/Auth';
 const app = express();
 
 // Settings
-
+app.use(express.static('public'))
 app.set('port', process.env.PORT || 3000); // configuration of the port that will be used by the server
 
 app.listen(app.get('port'), () => {
