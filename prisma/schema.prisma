@@ -57,7 +57,7 @@ model Person {
   ID_person   Int      @id @default(autoincrement())
   First_name  String
   Last_name   String
-  Mail_adress String
+  Mail_adress String  @unique
   Password    String
   ID_compagny Int
   Compagny    Compagny @relation(fields: [ID_compagny], references: [ID_compagny])
