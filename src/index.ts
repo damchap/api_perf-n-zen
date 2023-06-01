@@ -9,6 +9,7 @@ import personRoutes from './routes/person';
 import roleRoutes from './routes/role';
 import connectionRoutes from './routes/connect';
 import Auth from './Middlewares/Auth';
+import path from 'path';
 
 
 // Initializations
@@ -56,7 +57,9 @@ app.post('/api/login', (req, res) => {
     // Send tokens in response to the client (body)
     res.json({ accessToken, refreshToken });
 });
-
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+  })
 // routes for persons
 app.use('/api/V1/person', Auth, personRoutes);
 // routes for roles
