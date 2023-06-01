@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import personRoutes from './routes/person';
 import roleRoutes from './routes/role';
+import connectionRoutes from './routes/connect';
 import Auth from './Middlewares/Auth';
 
 
@@ -60,6 +61,8 @@ app.post('/api/login', (req, res) => {
 app.use('/api/V1/person', Auth, personRoutes);
 // routes for roles
 app.use('/api/V1/role', Auth, roleRoutes);
+// routes for connection and authentication
+app.use('/api/V1/connect', connectionRoutes);
 
 
   
