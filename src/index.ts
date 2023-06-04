@@ -58,7 +58,7 @@ app.post('/api/login', (req, res) => {
     res.json({ accessToken, refreshToken });
 });
 app.get('/', (req, res) => {
-    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+    res.send('Hello World');
   })
 // routes for persons
 app.use('/api/V1/person', Auth, personRoutes);
