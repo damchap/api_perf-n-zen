@@ -9,13 +9,14 @@ import personRoutes from './routes/person';
 import roleRoutes from './routes/role';
 import connectionRoutes from './routes/connect';
 import Auth from './Middlewares/Auth';
+import path from 'path';
 
 
 // Initializations
 const app = express();
 
 // Settings
-
+app.use(express.static('public'))
 app.set('port', process.env.PORT || 3000); // configuration of the port that will be used by the server
 
 app.listen(app.get('port'), () => {
@@ -56,7 +57,9 @@ app.post('/api/login', (req, res) => {
     // Send tokens in response to the client (body)
     res.json({ accessToken, refreshToken });
 });
-
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+  })
 // routes for persons
 app.use('/api/V1/person', Auth, personRoutes);
 // routes for roles
@@ -64,6 +67,8 @@ app.use('/api/V1/role', Auth, roleRoutes);
 // routes for connection and authentication
 app.use('/api/V1/connect', connectionRoutes);
 
+
+export default app;
 
   
 

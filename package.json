@@ -8,7 +8,8 @@
     "dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
     "seed": "ts-node prisma/seed.ts",
     "build": "tsc ",
-    "start": "node dist/src/index.js"
+    "start": "node dist/src/index.js",
+    "vercel-build": "echo \"No build step required\""
     },
   "keywords": [],
   "author": "Damien Chapart, Ludovic Guillerm, Adeline Huvet, Orane Lebesnerais, Jeanne Pellé, Benjamin Rocher",
