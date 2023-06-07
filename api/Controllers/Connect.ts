@@ -18,11 +18,10 @@ export const testLogin = async (req: Request, res: Response) => {
     // test email and password on Persons
     const newPerson = Persons.find((person) => person.Mail_adress === Mail_adress && person.Password === Password)
     // test password on newPerson
-    // if (newPerson === null) {
-        
-    // } else {
-    //     res.json(newPerson);
-       
-    // }
-    res.json(newPerson);
+    console.log(newPerson);
+    if (newPerson === null) {
+        res.json({message: 'Email or password incorrect'}); 
+    } else {
+        res.json(newPerson);   
+    }
 }
