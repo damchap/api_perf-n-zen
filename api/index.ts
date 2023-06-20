@@ -2,19 +2,16 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
-dotenv.config();
+import SwaggerUI from 'swagger-ui'
 import personRoutes from './routes/person';
 import roleRoutes from './routes/role';
 import connectionRoutes from './routes/connect';
 import statisticsRoutes from './routes/statistics';
 import questionRoutes from './routes/question';
-
-import Auth from './Middlewares/Auth';
-import path from 'path';
-
+import Auth from './middlewares/Auth';
 
 // Initializations
+dotenv.config();
 const app = express();
 
 // Settings
@@ -42,7 +39,7 @@ app.use('/api/V1/role', Auth, roleRoutes);
 // routes for connection and authentication
 app.use('/api/V1/connect', connectionRoutes);
 // create new questionnaire
-app.use('/api/V1/questionnaire', Auth, questionRoutes);
+app.use('/api/V1/question', Auth, questionRoutes);
 // routes for statistics
 app.use('/api/V1/statistics', statisticsRoutes);
 
