@@ -11,8 +11,8 @@ const prisma = new PrismaClient();
  */
 export const getPerson = async (req: Request, res: Response) => {
     // find all persons in database (prisma model) and return them in json format (res.json)
-    const person = await prisma.person.findMany();
-    res.json(person);
+    const persons = await prisma.person.findMany();
+    res.json(persons);
 }
 
 /**

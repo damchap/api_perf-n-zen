@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { testLogin } from '../Controllers/Connect';
+import { testLogin } from '../controllers/Connect';
 
 // generate routes for persons
 const router = Router();

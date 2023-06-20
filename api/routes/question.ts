@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getQuestionById, getQuestions } from '../Controllers/Question';
+import { getQuestionById, getQuestions } from '../controllers/Question';
 
 // generate routes for roles
 const router = Router();
