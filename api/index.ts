@@ -2,16 +2,16 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
-dotenv.config();
+import SwaggerUI from 'swagger-ui'
 import personRoutes from './routes/person';
 import roleRoutes from './routes/role';
 import connectionRoutes from './routes/connect';
-import Auth from './Middlewares/Auth';
-import path from 'path';
-
+import statisticsRoutes from './routes/statistics';
+import questionRoutes from './routes/question';
+import Auth from './middlewares/Auth';
 
 // Initializations
+dotenv.config();
 const app = express();
 
 // Settings
@@ -27,28 +27,8 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// User and password for authentication jwt
-const user = {
-    username: 'admin',
-    password: 'admin'
-};
 
-// Routes (URLs that the server will listen to)
-// route for authentication jwt and generate tokens (access and refresh)
-// app.post('/api/login', (req, res) => {
-//     const username = req.body.username;
-//     const password = req.body.password;
-//     // Validate user and password
-//     if (username !== user.username || password !== user.password) {
-//         return res.status(401).send('Username or password incorrect');
-//     }
-//     // Generate tokens
-//     const accessToken = generateAccessToken(user);
-//     // Generate refresh tokens
-//     const refreshToken = generateRefreshToken(user);
-//     // Send tokens in response to the client (body)
-//     res.json({ accessToken, refreshToken });
-// });
+
 app.get('/', (req, res) => {
     res.send('Hello World');
   })
@@ -58,6 +38,10 @@ app.use('/api/V1/person', Auth, personRoutes);
 app.use('/api/V1/role', Auth, roleRoutes);
 // routes for connection and authentication
 app.use('/api/V1/connect', connectionRoutes);
+// create new questionnaire
+app.use('/api/V1/question', Auth, questionRoutes);
+// routes for statistics
+app.use('/api/V1/statistics', statisticsRoutes);
 
 
 export default app;

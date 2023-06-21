@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getPerson, getPersonById, createPerson, updatePerson, deletePerson } from '../Controllers/Person';
+import { getPerson, getPersonById, createPerson, updatePerson, deletePerson } from '../controllers/Person';
 
 // generate routes for persons
 const router = Router();

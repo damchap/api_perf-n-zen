@@ -7,7 +7,9 @@ const prisma = new PrismaClient();
  * @param req Request
  * @param res Response
  */
+
 export const getRole= async (req: Request, res: Response) => {
+    
     const role = await prisma.role.findMany();
     res.json(role);
 }
