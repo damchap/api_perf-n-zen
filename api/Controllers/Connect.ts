@@ -1,4 +1,4 @@
-import e, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { generateAccessToken, generateRefreshToken } from '../utils/secure';
 const prisma = new PrismaClient();
@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 export const testLogin = async (req: Request, res: Response) => {
     // get data from body
     const { Mail_adress, Password } = req.body;
-    console.log(Mail_adress, Password);
+    // console.log(Mail_adress, Password);
     // get getall person
     const Persons = await prisma.person.findMany();
     // test email and password on Persons

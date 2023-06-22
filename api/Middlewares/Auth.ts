@@ -17,7 +17,7 @@ const Auth = (req: any, res: any, next: any) => {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET || "3000", (err: any, user: any) => {
         console.log(err)
         if (err) return res.sendStatus(403)
-        req.user = user
+        // req.user = user
         next()
     })
 }
