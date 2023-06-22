@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { generateAccessToken, generateRefreshToken } from '../utils/secure';
+import { generateAccessToken } from '../utils/secure';
 const prisma = new PrismaClient();
 
 /**
@@ -25,9 +25,7 @@ export const testLogin = async (req: Request, res: Response) => {
     } else {
         // Generate tokens
         const accessToken = generateAccessToken(newPerson);
-        // Generate refresh tokens
-        const refreshToken = generateRefreshToken(newPerson);
         // Send tokens in response to the client (body)
-        res.json({ newPerson, accessToken, refreshToken });   
+        res.json({ newPerson, accessToken});   
     }
 }
