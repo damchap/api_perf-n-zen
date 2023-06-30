@@ -6,7 +6,7 @@ const router = Router();
 
 // routes for statistics
 // get all statistics by id
-router.get('/questionnaire/:id', getStatistics);
+router.post('/questionnaire/', getStatistics);
 
 
 export default router;

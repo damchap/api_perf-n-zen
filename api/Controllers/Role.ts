@@ -28,6 +28,21 @@ export const getRoleById = async (req: Request, res: Response) => {
     res.json(role);
 }
 
+export const getRoleByIdPerson = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const owner = await prisma.owner.findMany({
+        where: {
+            ID_person: Number(id),
+        },
+    });
+    const role = await prisma.role.findUnique({
+        where: {
+            ID_role: owner[0].ID_role,
+        },
+    });
+    res.json(role);
+}
+
 /**
  * function create role
  * @route  POST /api/role/

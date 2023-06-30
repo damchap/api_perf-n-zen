@@ -35,3 +35,18 @@ describe('POST /api/login', () => {
         });
     });
 });
+
+// test pour la route /api/v1/questionnaire/:id avec un id 1 pour le questionnaire et un id 1 pour l'utilisateur
+describe('GET /api/v1/questionnaire/:id', () => {
+    it('should return 200 OK and a questionnaire', () => {
+        // return questionnaire
+        return request(app).post('/api/v1/questionnaire/1')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', "application/json; charset=utf-8")
+        .send({ ID_person: 1, ID_questionnaire: 1 })
+        .expect(200)
+        .then((response) => {
+            expect(response.body).toHaveProperty('questionnaire');
+        });
+    });
+});
