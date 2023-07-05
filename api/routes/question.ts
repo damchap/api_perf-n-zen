@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getQuestionById, getQuestions } from '../controllers/Question';
+import { createQuestion, deleteQuestion, getQuestionById, getQuestions, updateQuestion } from '../controllers/Question';
 
 // generate routes for roles
 const router = Router();
@@ -10,11 +10,11 @@ router.get('/', getQuestions);
 // get a role by id
 router.get('/:id', getQuestionById);
 // create question
-router.post('/', getQuestions);
+router.post('/', createQuestion);
 // update question
-router.put('/:id', getQuestions);
+router.put('/:id', updateQuestion);
 // delete question
-router.delete('/:id', getQuestions);
+router.delete('/:id', deleteQuestion);
 
 
 // export router

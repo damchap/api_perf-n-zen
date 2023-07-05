@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import e, { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
@@ -9,7 +9,13 @@ const prisma = new PrismaClient();
  */
 export const getQuestions = async (req: Request, res: Response) => {
     const questions = await prisma.question.findMany();
-    res.json(questions);
+    if (questions.length === 0) {
+        res.status(400).json({
+            message: `Il n'y a pas de question`,
+        });
+    } else {
+        res.status(200).json(questions);
+    }
 }
 
 /**
@@ -24,7 +30,13 @@ export const getQuestionById = async (req: Request, res: Response) => {
             ID_question: Number(id),
         },
     });
-    res.json(question);
+    if (question) {
+        res.status(200).json(question);
+    } else {
+        res.status(400).json({
+            message: `La question n'existe pas`,
+        });
+    }
 }
 
 /**
@@ -34,13 +46,34 @@ export const getQuestionById = async (req: Request, res: Response) => {
  */
 export const createQuestion = async (req: Request, res: Response) => {
     const { Question, ID_theme } = req.body;
-    const newQuestion = await prisma.question.create({
-        data: {
+    // test if the question already exists
+    const question = await prisma.question.findMany({
+        where: {
             Title_question: Question,
-            ID_theme: ID_theme,
         },
     });
-    res.json(newQuestion);
+    if (question.length > 0) {
+        return res.status(400).json({
+            message: `La question ${Question} existe déjà`,
+        });
+    } else {
+        // create the question
+        const newQuestion = await prisma.question.create({
+            data: {
+                Title_question: Question,
+                ID_theme: ID_theme,
+            },
+        });
+        if (newQuestion) {
+            return res.status(201).json({
+                message: `La question ${Question} a été créée`,
+            });
+        } else {
+            return res.status(400).json({
+                message: `La question ${Question} n'a pas été créée`,
+            });
+        }
+    }
 }
 
 /**
@@ -60,7 +93,15 @@ export const updateQuestion = async (req: Request, res: Response) => {
             ID_theme: ID_theme,
         },
     });
-    res.json(question);
+    if (question) {
+        return res.status(202).json({
+            message: `La question a été modifiée`,
+        });
+    } else {
+        return res.status(400).json({
+            message: `La question n'existe pas`,
+        });
+    }
 }
 
 /**
@@ -75,7 +116,15 @@ export const deleteQuestion = async (req: Request, res: Response) => {
             ID_question: Number(id),
         },
     });
-    res.json(question);
+    if (question) {
+        return res.status(202).json({
+            message: `La question a été supprimée`,
+        });
+    }
+    return res.status(400).json({
+        message: `La question n'existe pas`,
+    });
+
 }
 
 /**
@@ -93,7 +142,7 @@ export const getQuestionsByTheme = async (req: Request, res: Response) => {
     });
     if (questions.length === 0) {
         return res.status(400).json({
-            msg: `Le theme ${idNumber} n'existe pas`
+            message: `Le theme ${idNumber} n'existe pas`
         });
     } else {
         res.status(200).json(questions);

@@ -11,7 +11,13 @@ const prisma = new PrismaClient();
 export const getRole= async (req: Request, res: Response) => {
     
     const role = await prisma.role.findMany();
-    res.json(role);
+    if (role.length > 0) {
+        res.status(200).json(role);
+    } else {
+        res.status(404).json({
+            message: "Aucun role n'a été trouvé",
+        });
+    }
 }
 /**
  * function get role by id
@@ -25,7 +31,13 @@ export const getRoleById = async (req: Request, res: Response) => {
             ID_role: id,
         },
     });
-    res.json(role);
+    if (role !== null) {
+        res.status(200).json(role);
+    } else {
+        res.status(404).json({
+            message: "Aucun role n'a été trouvé",
+        });
+    }
 }
 
 export const getRoleByIdPerson = async (req: Request, res: Response) => {
@@ -40,7 +52,9 @@ export const getRoleByIdPerson = async (req: Request, res: Response) => {
             ID_role: owner[0].ID_role,
         },
     });
-    res.json(role);
+    if (role) {
+        res.status(200).json(role);
+    }
 }
 
 /**

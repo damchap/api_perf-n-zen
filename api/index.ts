@@ -7,6 +7,7 @@ import roleRoutes from './routes/role';
 import connectionRoutes from './routes/connect';
 import statisticsRoutes from './routes/statistics';
 import questionRoutes from './routes/question';
+import themeRoutes from './routes/theme';
 import Auth from './middlewares/Auth';
 
 
@@ -37,12 +38,15 @@ app.get('/', (req, res) => {
 
 // routes for persons
 app.use('/api/V1/person', Auth, personRoutes);
-// routes for roles
-app.use('/api/V1/role', Auth, roleRoutes);
+
 // routes for connection and authentication
 app.use('/api/V1/connect', connectionRoutes);
 // create new questionnaire
 app.use('/api/V1/question', Auth, questionRoutes);
+// routes for themes
+app.use('/api/V1/theme', Auth, themeRoutes);
+// routes for roles
+app.use('/api/V1/role', Auth, roleRoutes);
 // routes for statistics
 app.use('/api/V1/statistics', statisticsRoutes);
 
